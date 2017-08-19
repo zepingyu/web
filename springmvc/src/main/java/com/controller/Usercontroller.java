@@ -28,9 +28,4 @@ public class Usercontroller {
     public String index( Model model) {
         return "index";
     }
-
-    @RequestMapping("/index1")
-    public String index1( Model model) {
-        return "index";
-    }
 }

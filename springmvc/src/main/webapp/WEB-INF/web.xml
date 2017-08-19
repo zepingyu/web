@@ -1,0 +1,40 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+  <!--welcome pages-->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!--配置springmvc DispatcherServlet   前端控制器-->
+  <servlet>
+    <servlet-name>springMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <!--Sources标注的文件夹下需要新建一个spring文件夹-->
+      <!--contextConfigLocation配置springmvc加载的配置文件(配置处理器适配器，映射器等等)  -->
+      <!-- 如果不配置contextConfigLocation，默认加载的是WEB-INF/servlet名称-servlet.xml（springmvc-servlet.xml） -->
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+
+  <servlet-mapping>
+    <!-- 方法  1. *.action访问以.action结尾由DispatcherSevlet进行解析
+    2. /所有访问的地址都由DispatcherSevlet进行解析，对于静态文件(html)的解析需要配置不让DispatcherSevlet进行解析；使用此种方法可以实现RESTful风格的URL
+    3. /*，这样配置不对，使用它，最终转发jsp页面时，仍然会由DispatcherSevlet进行解析jsp，不能根据jsp页面找到Handle，会报错-->
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>/</url-pattern>  <!-- <url-pattern>*.do</url-pattern> -->
+  </servlet-mapping>
+
+  <display-name>Archetype Created Web Application</display-name>
+</web-app>
